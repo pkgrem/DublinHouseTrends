@@ -12,3 +12,6 @@ Volatility: The percentage change in property prices seems to fluctuate quite a 
 Trends: While it's hard to discern a clear upward or downward trend from the plot alone, there are periods where the percentage change rises and falls.
 
 Seasonality: There doesn't appear to be a strong seasonal pattern in the data, but further analysis would be needed to confirm this.
+
+Added in splits for trends.
+![imageofpreviousdata](https://i.imgur.com/ZV0NjIC.png)
