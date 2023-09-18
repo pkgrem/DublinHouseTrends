@@ -1,5 +1,7 @@
 # DublinHouseTrends
 
+![imageofpreviousdata](https://i.imgur.com/47BWE4c.png)
+
 The line plot above shows the monthly percentage change in residential property prices in Dublin. The x-axis represents the months, and the y-axis represents the percentage change in house prices.
 
 Here are a few observations:
