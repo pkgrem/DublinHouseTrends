@@ -7,7 +7,7 @@ import numpy as np
 # Set a seaborn style for better aesthetics
 sns.set(style="whitegrid")
 
-# Load the dataset 
+# Load the dataset
 file_path = 'HPM09.20230918T210942.csv'
 df = pd.read_csv(file_path)
 
@@ -22,12 +22,20 @@ df_clean = df_clean.sort_values(by='Month')
 plt.figure(figsize=(16, 6))
 sns.lineplot(x='Month', y='VALUE', data=df_clean, color='royalblue', label='Monthly Change')
 
-# Add a trendline using numpy's polyfit
-z = np.polyfit(range(len(df_clean['Month'])), df_clean['VALUE'], 1)
-p = np.poly1d(z)
-plt.plot(df_clean['Month'], p(range(len(df_clean['Month']))), 'r--', label='Trendline')
+# Breaking down the data into 3-year segments for trendlines
+df_clean['Year'] = df_clean['Month'].dt.year
+year_min = df_clean['Year'].min()
+year_max = df_clean['Year'].max()
 
-plt.title('Monthly Percentage Change in Residential Property Prices in Dublin with Trendline', fontsize=16)
+for start_year in range(year_min, year_max, 3):
+    end_year = min(start_year + 3, year_max + 1)
+    segment = df_clean[(df_clean['Year'] >= start_year) & (df_clean['Year'] < end_year)]
+    if len(segment) > 1:
+        z = np.polyfit(range(len(segment['Month'])), segment['VALUE'], 1)
+        p = np.poly1d(z)
+        plt.plot(segment['Month'], p(range(len(segment['Month']))), '--', label=f'Trend {start_year}-{end_year-1}')
+
+plt.title('Monthly Percentage Change in Residential Property Prices in Dublin with Segmented Trendlines', fontsize=16)
 plt.xlabel('Month', fontsize=14)
 plt.ylabel('Percentage Change (%)', fontsize=14)
 
